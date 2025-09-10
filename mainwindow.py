@@ -1,6 +1,7 @@
 # This Python file uses the following encoding: utf-8
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QDialog, QLabel, QVBoxLayout, QPushButton
 
 # Important:
 # You need to run the following command to generate the ui_form.py file
@@ -23,11 +24,30 @@ class MainWindow(QMainWindow):
 
     def settingsButton_clicked(self):
         print("Settings Button was clicked!")
-        # do something here
+        self.settings_window = SettingsWindow()
+        self.settings_window.exec()
 
     def exitButton_clicked(self):
         print("Exit Button was clicked!")
-        # do something here
+        self.close()
+
+class SettingsWindow(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Settings")
+        self.setFixedSize(300, 200)  # small window size
+
+        layout = QVBoxLayout()
+
+        label = QLabel("Settings go here!")
+        layout.addWidget(label)
+
+        close_button = QPushButton("Close")
+        close_button.clicked.connect(self.close)
+        layout.addWidget(close_button)
+
+        self.setLayout(layout)
+
 
 
 
