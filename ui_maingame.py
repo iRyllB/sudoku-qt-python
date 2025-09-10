@@ -15,35 +15,26 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QMainWindow, QMenuBar,
-    QSizePolicy, QStatusBar, QWidget)
+from PySide6.QtWidgets import (QApplication, QLabel, QSizePolicy, QWidget)
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(640, 480)
-        self.centralwidget = QWidget(MainWindow)
-        self.centralwidget.setObjectName(u"centralwidget")
-        self.label = QLabel(self.centralwidget)
+class Ui_maingame(object):
+    def setupUi(self, maingame):
+        if not maingame.objectName():
+            maingame.setObjectName(u"maingame")
+        maingame.resize(600, 600)
+        maingame.setMinimumSize(QSize(600, 600))
+        maingame.setMaximumSize(QSize(600, 600))
+        self.label = QLabel(maingame)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(270, 170, 101, 31))
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(MainWindow)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 640, 21))
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName(u"statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.label.setGeometry(QRect(130, 180, 221, 111))
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(maingame)
 
-        QMetaObject.connectSlotsByName(MainWindow)
+        QMetaObject.connectSlotsByName(maingame)
     # setupUi
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"GAME IS HERE", None))
+    def retranslateUi(self, maingame):
+        maingame.setWindowTitle(QCoreApplication.translate("maingame", u"Form", None))
+        self.label.setText(QCoreApplication.translate("maingame", u"GAME GOES HERE", None))
     # retranslateUi
 
