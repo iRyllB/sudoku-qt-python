@@ -1,6 +1,5 @@
 # This Python file uses the following encoding: utf-8
 import sys
-
 from PySide6.QtWidgets import QApplication, QMainWindow
 
 # Important:
@@ -14,6 +13,11 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ui.pushButton.clicked.connect(self.on_button_clicked)
+
+    def on_button_clicked(self):
+        print("Button was clicked!")
+        # do something here
 
 
 if __name__ == "__main__":
