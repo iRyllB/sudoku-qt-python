@@ -27,12 +27,18 @@ class Ui_MainWindow(object):
         MainWindow.setMaximumSize(QSize(600, 600))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.pushButton = QPushButton(self.centralwidget)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(190, 160, 211, 131))
+        self.startButton = QPushButton(self.centralwidget)
+        self.startButton.setObjectName(u"startButton")
+        self.startButton.setGeometry(QRect(230, 150, 121, 41))
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(260, 50, 141, 101))
+        self.settingsButton = QPushButton(self.centralwidget)
+        self.settingsButton.setObjectName(u"settingsButton")
+        self.settingsButton.setGeometry(QRect(230, 210, 121, 41))
+        self.exitButton = QPushButton(self.centralwidget)
+        self.exitButton.setObjectName(u"exitButton")
+        self.exitButton.setGeometry(QRect(230, 270, 121, 41))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -49,7 +55,9 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"START GAME", None))
+        self.startButton.setText(QCoreApplication.translate("MainWindow", u"START GAME", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Soduko Lite", None))
+        self.settingsButton.setText(QCoreApplication.translate("MainWindow", u"SETTINGS", None))
+        self.exitButton.setText(QCoreApplication.translate("MainWindow", u"EXIT", None))
     # retranslateUi
 

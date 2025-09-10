@@ -13,11 +13,22 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.pushButton.clicked.connect(self.on_button_clicked)
+        self.ui.startButton.clicked.connect(self.startButton_clicked)
+        self.ui.settingsButton.clicked.connect(self.settingsButton_clicked)
+        self.ui.exitButton.clicked.connect(self.exitButton_clicked)
 
-    def on_button_clicked(self):
-        print("Button was clicked!")
+    def startButton_clicked(self):
+        print("Start Button was clicked!")
         # do something here
+
+    def settingsButton_clicked(self):
+        print("Settings Button was clicked!")
+        # do something here
+
+    def exitButton_clicked(self):
+        print("Exit Button was clicked!")
+        # do something here
+
 
 
 if __name__ == "__main__":
