@@ -2,11 +2,11 @@
 import sys
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QDialog, QLabel,
-    QVBoxLayout, QPushButton, QLineEdit, QGridLayout
+    QVBoxLayout, QPushButton, QLineEdit, QGridLayout, QWidget
 )
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import QFile, Qt
-from PySide6.QtGui import QIntValidator
+from PySide6.QtGui import QIntValidator, QPainter, QPen
 from ui_form import Ui_MainWindow   # your main menu UI
 
 
@@ -56,6 +56,57 @@ class SettingsWindow(QDialog):
         self.setLayout(layout)
 
 
+class SudokuBoard(QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.grid = QGridLayout(self)
+        self.grid.setSpacing(0)
+        self.cells = []
+
+        cell_size = 50  # size of each Sudoku cell
+        for row in range(9):
+            row_cells = []
+            for col in range(9):
+                cell = QLineEdit()
+                cell.setMaxLength(1)
+                cell.setFixedSize(cell_size, cell_size)
+                cell.setAlignment(Qt.AlignCenter)
+
+                # Make cells invisible (only text shows)
+                cell.setStyleSheet("""
+                    border: none;
+                    background: transparent;
+                    font-size: 20px;
+                """)
+
+                # Only allow digits 1–9
+                cell.setValidator(QIntValidator(1, 9, cell))
+
+                self.grid.addWidget(cell, row, col)
+                row_cells.append(cell)
+            self.cells.append(row_cells)
+
+    def paintEvent(self, event):
+        """Draw Sudoku grid lines (thin + thick every 3 cells)."""
+        painter = QPainter(self)
+        rect = self.rect()
+        size = rect.width() / 9
+
+        # Thin lines
+        pen = QPen(Qt.black, 1)
+        painter.setPen(pen)
+        for i in range(10):
+            painter.drawLine(i * size, 0, i * size, rect.height())
+            painter.drawLine(0, i * size, rect.width(), i * size)
+
+        # Thick lines every 3 cells
+        pen = QPen(Qt.black, 3)
+        painter.setPen(pen)
+        for i in range(0, 10, 3):
+            painter.drawLine(i * size, 0, i * size, rect.height())
+            painter.drawLine(0, i * size, rect.width(), i * size)
+
+
 class GameWindow(QMainWindow):
     def __init__(self, mainwindow):
         super().__init__()
@@ -73,50 +124,15 @@ class GameWindow(QMainWindow):
 
         # Connect back button
         self.ui.backButton.clicked.connect(self.backButton_clicked)
+
+        # Insert Sudoku board into boardContainer
         self.build_sudoku_board()
 
     def build_sudoku_board(self):
-        """Create a 9x9 Sudoku board inside boardContainer."""
-        # Ensure boardContainer has a layout
-        if isinstance(self.ui.boardcontainer.layout(), QGridLayout):
-            grid = self.ui.boardContainer.layout()
-        else:
-            grid = QGridLayout()
-            self.ui.boardcontainer.setLayout(grid)
-
-        grid.setSpacing(0)  # no spacing between cells
-        self.cells = []
-
-        for row in range(9):
-            row_cells = []
-            for col in range(9):
-                cell = QLineEdit()
-                cell.setMaxLength(1)  # one digit only
-                cell.setFixedSize(40, 40)
-                cell.setAlignment(Qt.AlignCenter)
-
-                # Font and center
-                cell.setStyleSheet("font-size: 18px; border: 1px solid black;")
-
-                # Restrict input to numbers 1–9
-                cell.setValidator(QIntValidator(1, 9, cell))
-
-                # Add bold borders every 3 rows/cols
-                top = 2 if row % 3 == 0 else 1
-                left = 2 if col % 3 == 0 else 1
-                right = 2 if col == 8 else 1
-                bottom = 2 if row == 8 else 1
-
-                cell.setStyleSheet(
-                    f"font-size: 18px; border-top: {top}px solid black; "
-                    f"border-left: {left}px solid black; "
-                    f"border-right: {right}px solid black; "
-                    f"border-bottom: {bottom}px solid black;"
-                )
-
-                grid.addWidget(cell, row, col)
-                row_cells.append(cell)
-            self.cells.append(row_cells)
+        self.board = SudokuBoard(self.ui.boardcontainer)
+        layout = QVBoxLayout(self.ui.boardcontainer)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.addWidget(self.board)
 
     def backButton_clicked(self):
         print("Back Button was clicked")
