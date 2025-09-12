@@ -5,11 +5,13 @@ from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import QFile
 from ui_form import Ui_MainWindow   # your main menu UI
 
+
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
         # Connect buttons
         self.ui.startButton.clicked.connect(self.startButton_clicked)
         self.ui.settingsButton.clicked.connect(self.settingsButton_clicked)
@@ -17,9 +19,10 @@ class MainWindow(QMainWindow):
 
     def startButton_clicked(self):
         print("Start Button was clicked!")
-        self.game_window = GameWindow()
+        # Pass self so GameWindow knows who called it
+        self.game_window = GameWindow(self)
         self.game_window.show()
-        self.close()
+        self.hide()
 
     def settingsButton_clicked(self):
         print("Settings Button was clicked!")
@@ -50,8 +53,10 @@ class SettingsWindow(QDialog):
 
 
 class GameWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, mainwindow):
         super().__init__()
+        # Store reference to the main menu window
+        self.mainwindow = mainwindow
 
         # Load maingame.ui dynamically
         loader = QUiLoader()
@@ -59,6 +64,14 @@ class GameWindow(QMainWindow):
         ui_file.open(QFile.ReadOnly)
         self.ui = loader.load(ui_file, self)  # game UI is now inside self.ui
         ui_file.close()
+
+        # Connect back button
+        self.ui.backButton.clicked.connect(self.backButton_clicked)
+
+    def backButton_clicked(self):
+        print("Back Button was clicked")
+        self.close()
+        self.mainwindow.show()
 
 
 if __name__ == "__main__":

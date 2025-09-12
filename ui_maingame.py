@@ -15,7 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QSizePolicy,
+    QWidget)
 
 class Ui_maingame(object):
     def setupUi(self, maingame):
@@ -27,6 +28,9 @@ class Ui_maingame(object):
         self.label = QLabel(maingame)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(130, 180, 221, 111))
+        self.backButton = QPushButton(maingame)
+        self.backButton.setObjectName(u"backButton")
+        self.backButton.setGeometry(QRect(140, 320, 80, 24))
 
         self.retranslateUi(maingame)
 
@@ -36,5 +40,6 @@ class Ui_maingame(object):
     def retranslateUi(self, maingame):
         maingame.setWindowTitle(QCoreApplication.translate("maingame", u"Form", None))
         self.label.setText(QCoreApplication.translate("maingame", u"GAME GOES HERE", None))
+        self.backButton.setText(QCoreApplication.translate("maingame", u"Back", None))
     # retranslateUi
 
