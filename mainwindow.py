@@ -1,9 +1,14 @@
 # This Python file uses the following encoding: utf-8
 import sys
-from PySide6.QtWidgets import QApplication, QMainWindow, QDialog, QLabel, QVBoxLayout, QPushButton
+from PySide6.QtWidgets import (
+    QApplication, QMainWindow, QDialog, QLabel,
+    QVBoxLayout, QPushButton, QLineEdit, QGridLayout
+)
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtCore import QFile
+from PySide6.QtCore import QFile, Qt
+from PySide6.QtGui import QIntValidator
 from ui_form import Ui_MainWindow   # your main menu UI
+
 
 
 class MainWindow(QMainWindow):
@@ -65,8 +70,34 @@ class GameWindow(QMainWindow):
         self.ui = loader.load(ui_file, self)  # game UI is now inside self.ui
         ui_file.close()
 
+        self.setCentralWidget(self.ui)
+
         # Connect back button
         self.ui.backButton.clicked.connect(self.backButton_clicked)
+        self.build_sudoku_board()
+
+    def build_sudoku_board(self):
+            """Create a 9x9 Sudoku board inside boardContainer."""
+            grid = QGridLayout(self.ui.boardContainer)
+            grid.setSpacing(2)
+
+            self.cells = []
+
+            for row in range(9):
+                row_cells = []
+                for col in range(9):
+                    cell = QLineEdit()
+                    cell.setMaxLength(1)  # one digit only
+                    cell.setFixedSize(40, 40)
+                    cell.setAlignment(Qt.AlignCenter)
+                    cell.setStyleSheet("font-size: 18px;")
+
+                    # restrict input to numbers 1–9
+                    cell.setValidator(QIntValidator(1, 9, cell))
+
+                    grid.addWidget(cell, row, col)
+                    row_cells.append(cell)
+                self.cells.append(row_cells)
 
     def backButton_clicked(self):
         print("Back Button was clicked")
