@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QPushButton, QSizePolicy,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QLabel, QPushButton,
+    QSizePolicy, QWidget)
 
 class Ui_maingame(object):
     def setupUi(self, maingame):
@@ -27,10 +27,21 @@ class Ui_maingame(object):
         maingame.setMaximumSize(QSize(600, 600))
         self.label = QLabel(maingame)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(130, 180, 221, 111))
+        self.label.setGeometry(QRect(10, -40, 221, 111))
         self.backButton = QPushButton(maingame)
         self.backButton.setObjectName(u"backButton")
-        self.backButton.setGeometry(QRect(140, 320, 80, 24))
+        self.backButton.setGeometry(QRect(500, 490, 80, 24))
+        self.gridLayoutWidget = QWidget(maingame)
+        self.gridLayoutWidget.setObjectName(u"gridLayoutWidget")
+        self.gridLayoutWidget.setGeometry(QRect(20, 40, 561, 441))
+        self.container = QGridLayout(self.gridLayoutWidget)
+        self.container.setObjectName(u"container")
+        self.container.setContentsMargins(0, 0, 0, 0)
+        self.boardcontainer = QWidget(self.gridLayoutWidget)
+        self.boardcontainer.setObjectName(u"boardcontainer")
+
+        self.container.addWidget(self.boardcontainer, 0, 0, 1, 1)
+
 
         self.retranslateUi(maingame)
 
