@@ -34,9 +34,14 @@ class Ui_maingame(object):
         self.gridLayoutWidget = QWidget(maingame)
         self.gridLayoutWidget.setObjectName(u"gridLayoutWidget")
         self.gridLayoutWidget.setGeometry(QRect(20, 40, 561, 441))
-        self.boardContainer = QGridLayout(self.gridLayoutWidget)
-        self.boardContainer.setObjectName(u"boardContainer")
-        self.boardContainer.setContentsMargins(0, 0, 0, 0)
+        self.container = QGridLayout(self.gridLayoutWidget)
+        self.container.setObjectName(u"container")
+        self.container.setContentsMargins(0, 0, 0, 0)
+        self.boardcontainer = QWidget(self.gridLayoutWidget)
+        self.boardcontainer.setObjectName(u"boardcontainer")
+
+        self.container.addWidget(self.boardcontainer, 0, 0, 1, 1)
+
 
         self.retranslateUi(maingame)
 

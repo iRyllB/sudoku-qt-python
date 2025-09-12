@@ -60,7 +60,11 @@
      <height>441</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="boardContainer"/>
+   <layout class="QGridLayout" name="container">
+    <item row="0" column="0">
+     <widget class="QWidget" name="boardcontainer" native="true"/>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
