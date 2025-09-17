@@ -22,9 +22,9 @@ class Ui_maingame(object):
     def setupUi(self, maingame):
         if not maingame.objectName():
             maingame.setObjectName(u"maingame")
-        maingame.resize(600, 600)
+        maingame.resize(656, 684)
         maingame.setMinimumSize(QSize(600, 600))
-        maingame.setMaximumSize(QSize(600, 600))
+        maingame.setMaximumSize(QSize(2000, 2000))
         self.label = QLabel(maingame)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(10, -40, 221, 111))
@@ -40,7 +40,7 @@ class Ui_maingame(object):
         self.boardcontainer = QWidget(self.gridLayoutWidget)
         self.boardcontainer.setObjectName(u"boardcontainer")
         self.boardcontainer.setMinimumSize(QSize(600, 600))
-        self.boardcontainer.setMaximumSize(QSize(600, 600))
+        self.boardcontainer.setMaximumSize(QSize(2000, 2000))
 
         self.container.addWidget(self.boardcontainer, 0, 0, 1, 1)
 
