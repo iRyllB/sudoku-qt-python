@@ -61,15 +61,19 @@ class SudokuBoard(QWidget):
         super().__init__(parent)
         self.grid = QGridLayout(self)
         self.grid.setSpacing(0)
+        self.grid.setContentsMargins(0, 0, 0, 0)
         self.cells = []
 
-        cell_size = 50  # size of each Sudoku cell
+        self.cell_size = 50
+        board_size = self.cell_size * 9
+        self.setFixedSize(board_size, board_size)
+
         for row in range(9):
             row_cells = []
             for col in range(9):
                 cell = QLineEdit()
                 cell.setMaxLength(1)
-                cell.setFixedSize(cell_size, cell_size)
+                cell.setFixedSize(self.cell_size, self.cell_size)
                 cell.setAlignment(Qt.AlignCenter)
 
                 # Make cells invisible (only text shows)
@@ -89,22 +93,22 @@ class SudokuBoard(QWidget):
     def paintEvent(self, event):
         """Draw Sudoku grid lines (thin + thick every 3 cells)."""
         painter = QPainter(self)
-        rect = self.rect()
-        size = rect.width() / 9
+        cell_size = self.cell_size
+        board_size = cell_size * 9
 
         # Thin lines
         pen = QPen(Qt.black, 1)
         painter.setPen(pen)
         for i in range(10):
-            painter.drawLine(i * size, 0, i * size, rect.height())
-            painter.drawLine(0, i * size, rect.width(), i * size)
+            painter.drawLine(i * cell_size, 0, i * cell_size, board_size)
+            painter.drawLine(0, i * cell_size, board_size, i * cell_size)
 
         # Thick lines every 3 cells
         pen = QPen(Qt.black, 3)
         painter.setPen(pen)
         for i in range(0, 10, 3):
-            painter.drawLine(i * size, 0, i * size, rect.height())
-            painter.drawLine(0, i * size, rect.width(), i * size)
+            painter.drawLine(i * cell_size, 0, i * cell_size, board_size)
+            painter.drawLine(0, i * cell_size, board_size, i * cell_size)
 
 
 class GameWindow(QMainWindow):
@@ -117,7 +121,7 @@ class GameWindow(QMainWindow):
         loader = QUiLoader()
         ui_file = QFile("maingame.ui")
         ui_file.open(QFile.ReadOnly)
-        self.ui = loader.load(ui_file, self)  # game UI is now inside self.ui
+        self.ui = loader.load(ui_file, self)
         ui_file.close()
 
         self.setCentralWidget(self.ui)
@@ -132,7 +136,7 @@ class GameWindow(QMainWindow):
         self.board = SudokuBoard(self.ui.boardcontainer)
         layout = QVBoxLayout(self.ui.boardcontainer)
         layout.setContentsMargins(0, 0, 0, 0)
-        layout.addWidget(self.board)
+        layout.addWidget(self.board, alignment=Qt.AlignCenter)
 
     def backButton_clicked(self):
         print("Back Button was clicked")
