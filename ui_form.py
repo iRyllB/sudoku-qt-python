@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(600, 600)
         MainWindow.setMinimumSize(QSize(600, 600))
-        MainWindow.setMaximumSize(QSize(600, 600))
+        MainWindow.setMaximumSize(QSize(2000, 2000))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.startButton = QPushButton(self.centralwidget)
